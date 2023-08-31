@@ -57,6 +57,8 @@ class StartPage extends State<HomePage> {
     Student(stNum: "006", stName: "장녹수"),
   ];
 
+  List<Student> filterList = [];
+
   /// 동적으로 변화되는 배열(리스트) 요소들을 화면에 출력하기 위하여
   /// ListView.builder() 함수를 사용하여 각 요소를 디자인한다
   ListView appBarBody() => ListView.builder(
@@ -68,7 +70,7 @@ class StartPage extends State<HomePage> {
               child: InkWell(
                 onTap: () {
                   var snackBar = SnackBar(
-                    content: Text(studentList[index].stName),
+                    content: Text(filterList[index].stName),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
@@ -91,6 +93,34 @@ class StartPage extends State<HomePage> {
           );
         },
       );
+
+  void _onChangeHandler(String search) {
+    List<Student> result = [];
+
+    if (search.isNotEmpty) {
+      result =
+          studentList.where((item) => item.stName.contains(search)).toList();
+    } else {
+      result = studentList;
+    }
+    setState(() {
+      filterList = result;
+    });
+  }
+
+  /// state 가 최초에 mount 될 때
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  /// state 가 unmount 될 때
+  /// 일부 context 에 저장된 변수들을 사용 해제 해야할 경우가 있는데
+  /// 이때 여기에 그러한 코드를 작성한다
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +148,34 @@ class StartPage extends State<HomePage> {
         ],
       ),
       // mainAppBar(context),
-      body: appBarBody(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            TextField(
+              onChanged: (value) => _onChangeHandler(value),
+              decoration: const InputDecoration(
+                  labelText: "Search",
+                  labelStyle: TextStyle(fontSize: 20),
+                  hintText: "검색어를 입력하세요",
+                  hintStyle: TextStyle(color: Colors.blue),
+                  prefixIcon: Icon(
+                    Icons.search,
+                  )),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+                child: filterList.isNotEmpty
+                    ? appBarBody()
+                    : const Text(
+                        "찾는 값이 없음",
+                        style: TextStyle(fontSize: 25),
+                      )),
+          ],
+        ),
+      ),
     );
   }
 }
