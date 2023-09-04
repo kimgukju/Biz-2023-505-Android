@@ -34,6 +34,16 @@ class TodoService {
     return db.execute(createTABLE);
   }
 
+  Future<void> onUpgradeTable(db, oldVersion, newVersion) async {
+    if (newVersion > oldVersion) {
+      final db = await database;
+      final batch = db.batch();
+      batch.execute("DROP TABLE $TBL_TODO");
+      batch.execute(createTABLE);
+      await batch.commit();
+    }
+  }
+
   Future<Database> initDatabase() async {
     // 실제 phone 의 DB 가 저장되는 경로(path) 가져오기
     String dbPath = await getDatabasesPath();
@@ -42,7 +52,8 @@ class TodoService {
     return await openDatabase(
       dbFile,
       onCreate: onCreateTable,
-      version: 1,
+      onUpgrade: onUpgradeTable,
+      version: 5,
     );
   }
 
@@ -71,12 +82,13 @@ class TodoService {
     final db = await database;
     return db.update(
       TBL_TODO,
-      todo,
+      todo.toMap(),
       where: "id = ?",
-      whereArgs: todo.id,
+      whereArgs: [todo.id],
     );
   }
 
+  /// 비동기 방식으로 select 하여 데이터를 return 하고 있다.
   Future<List<Todo>> selectAll() async {
     final db = await database;
     final List<Map<String, dynamic>> todoList = await db.query(TBL_TODO);
