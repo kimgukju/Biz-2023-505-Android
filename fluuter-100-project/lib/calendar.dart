@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-class calendar extends StatelessWidget {
-  const calendar({super.key});
+class Calendar extends StatefulWidget {
+  const Calendar({super.key});
 
   @override
+  State<Calendar> createState() => _CalendarState();
+}
+
+class _CalendarState extends State<Calendar> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("나는 달력입니다. 근데 어케 넣을래?"),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: const Text("달력")),
+      body: const Text("여긴 달력넣기"),
     );
   }
 }

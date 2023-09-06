@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-class memo extends StatelessWidget {
-  const memo({super.key});
+class Memo extends StatefulWidget {
+  const Memo({super.key});
 
   @override
+  State<Memo> createState() => _MemoState();
+}
+
+class _MemoState extends State<Memo> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("나는 메모입니당"),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: const Text("메모")),
+      body: const Text("나는 메모장"),
     );
   }
 }

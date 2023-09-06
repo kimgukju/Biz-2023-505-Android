@@ -33,32 +33,39 @@ class _StartPage extends State<StartPage> {
         title: const Center(
           child: Text("My Notepad"),
         ),
-        toolbarHeight: 100,
+        toolbarHeight: 70,
       ),
-      body: Center(
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const calendar()));
-              },
-              icon: const Icon(
-                Icons.calendar_month_outlined,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Calendar()));
+                },
+                icon: const Icon(
+                  Icons.calendar_month_outlined,
+                ),
+                iconSize: 150,
               ),
-              iconSize: 100,
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const memo()));
-              },
-              icon: const Icon(
-                Icons.note_add,
+              const Text("     "),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Memo()));
+                },
+                icon: const Icon(
+                  Icons.note_add,
+                ),
+                iconSize: 150,
               ),
-              iconSize: 100,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
