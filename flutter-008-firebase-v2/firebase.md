@@ -9,3 +9,7 @@
   ![Alt text](image-12.png)
   ![Alt text](image-10.png)
   ![Alt text](image-13.png)
+
+## firebase fireStore 사용하기
+
+- dependency 설치 : `flutter pub add cloud_firestore`

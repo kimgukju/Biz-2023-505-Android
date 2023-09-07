@@ -1,6 +1,7 @@
 import 'package:firebase/firebase_options.dart';
 import 'package:firebase/pages/login_page.dart';
 import 'package:firebase/pages/mypage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ void main() async {
   /// 장치에 부착된 카메라, GPS 등에 접근하기 위하여
   /// Flutter 와 Native 를 연결하는 설정
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: StartPage(),
     );
   }
@@ -35,11 +37,50 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  // _authUser state 선언
+  late User? _authUser;
+
+  @override
+  void initState() {
+    // login 된 사용자 정보를 firebaseAuth 에 요청
+    _authUser = FirebaseAuth.instance.currentUser;
+    super.initState();
+  }
+
+  void updateAuthUser(User? user) {
+    setState(() {
+      _authUser = user;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Firebase Project")),
-      body: const LoginPage(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "반갑습니다.",
+              style: TextStyle(fontSize: 35),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MyPage(
+                      authUser: _authUser,
+                      updateAuthUser: updateAuthUser,
+                    ),
+                  ),
+                );
+              },
+              child: const Text("마이페이지"),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

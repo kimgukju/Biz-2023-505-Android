@@ -66,3 +66,15 @@ flutter pub upgrade outdated package
 flutter clean
 flutter pub get
 ```
+
+## 배포시 Dex 오류 발생하는 경우
+
+- `project / android / app / build.gradle` 파일을 찾는다
+- 파일에서 `defaultConfig` 항목을 찾는다. `multiDexEnabled true` 추가
+
+```kt
+ defaultConfig {
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+```
