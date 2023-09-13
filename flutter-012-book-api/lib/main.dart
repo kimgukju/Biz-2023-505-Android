@@ -59,7 +59,7 @@ class SearchBox extends StatelessWidget {
     required this.searchBooks,
   });
 
-  Function(String search) searchBooks;
+  final Function(String search) searchBooks;
   final searchInputController = TextEditingController();
 
   @override
