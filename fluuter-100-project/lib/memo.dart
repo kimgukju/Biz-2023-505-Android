@@ -28,7 +28,7 @@ class _MemoState extends State<Memo> {
               ),
               // 패딩을 줘서 넓이 조절
               Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(25),
                 child: TextFormField(
                   decoration: const InputDecoration(
                     hintText: "내용을 입력하세요",
@@ -68,12 +68,21 @@ class _MemoState extends State<Memo> {
               )
             ],
           ),
-          // IconButton(
-          //   onPressed: () => false,
-          //   icon: const Icon(Icons.add_circle_outline_outlined),
-          //   iconSize: 70,
-          // )
         ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: SizedBox(
+        width: 70,
+        height: 70,
+        child: FloatingActionButton(
+          onPressed: () => false,
+          backgroundColor: Colors.blue[300],
+          child: const Icon(
+            Icons.add,
+            size: 50,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }

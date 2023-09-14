@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:project/calendar.dart';
 import 'package:project/memo.dart';
@@ -15,6 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate, // Add this line
+        GlobalWidgetsLocalizations.delegate, // Add this line
+        GlobalCupertinoLocalizations.delegate, // Ad
+      ],
+      supportedLocales: [
+        Locale('ko', 'KR'),
+      ],
       home: StartPage(),
     );
   }
