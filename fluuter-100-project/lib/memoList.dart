@@ -14,7 +14,11 @@ class _MemoListState extends State<MemoList> {
       appBar: AppBar(
         title: const Text("메모 리스트"),
       ),
-      body: const Text("안뇽 나는 리스트"),
+      body: ListView(
+        children: const [
+          Text("??????????????????"),
+        ],
+      ),
     );
   }
 }
