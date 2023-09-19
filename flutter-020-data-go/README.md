@@ -6,5 +6,7 @@
 flutter pub add http
 flutter pub add provider
 flutter pub add xml2json
+flutter pub add flutter_dotenv
 
+flutter pub add http provider xml2json flutter_dotenv
 ```
